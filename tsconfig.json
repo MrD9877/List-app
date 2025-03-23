@@ -26,20 +26,19 @@
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }
+
 // {
 //   "compilerOptions": {
 //     "module": "ES6",
 //     "target": "ES6",
+//     "lib": ["dom", "dom.iterable", "esnext", "WebWorker"],
 //     "moduleResolution": "node",
 //     "baseUrl": ".", // Ensure you have baseUrl if using non-relative imports
-//     "outDir": "./public/dist", // Compile the service worker into public folder
-//     "paths": {
-//       "*": ["node_modules/*", "src/*"] // Include src in your path resolution if needed
-//     }
+//     "outDir": "./public/" // Compile the service worker into public folder
 //   },
 //   "include": [
-//     "src/**/*", // Make sure `sw.ts` is compiled from here
-//     "src/service-worker/sw.ts" // Include the sw.ts for compilation
+//     "sw.ts"
+//     // Include the sw.ts for compilation
 //   ],
 //   "exclude": ["node_modules", "dist"]
 // }

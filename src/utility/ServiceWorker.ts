@@ -1,4 +1,4 @@
-import { setOnline, store } from "./slice";
+import { setOnline, setPwaInsall, store, swRedirect } from "./slice";
 
 const ServiceWorkerClass: {
   deferredInstall: null | Event;
@@ -20,7 +20,6 @@ const ServiceWorkerClass: {
           scope: "/",
           type: "module",
         });
-
         // Wait for the service worker to be active
         ServiceWorkerClass.SW = registration.active || registration.waiting;
 
@@ -48,21 +47,17 @@ const ServiceWorkerClass: {
     }
     if ("standalone" in navigator && navigator.standalone) {
       console.log("Installed on iOS");
-      document.body.classList.add("pwa");
     } else if (matchMedia("(display-mode: standalone)").matches) {
       console.log("Installed on Android or desktop");
-      document.body.classList.add("pwa");
     } else {
       console.log("Launched from a browser tab");
-      document.body.classList.remove("pwa");
+      store.dispatch(setPwaInsall(false));
     }
 
     window.addEventListener("beforeinstallprompt", (ev) => {
-      // Prevent the mini-infobar from appearing on mobile
       ev.preventDefault();
-      // Stash the event so it can be triggered later.
       ServiceWorkerClass.deferredInstall = ev;
-      console.log("saved the install event");
+      store.dispatch(setPwaInsall(true));
     });
   },
   unregister: () => {
@@ -86,10 +81,12 @@ const ServiceWorkerClass: {
 
   handleMessage(ev: MessageEvent<unknown>) {
     console.log(ev.data);
+
     if (typeof ev.data === "object" && ev.data && "confirmOnline" in ev.data) {
       store.dispatch(setOnline(ev.data.confirmOnline as boolean));
+    } else if (typeof ev.data === "string" && ev.data === "not-found") {
+      store.dispatch(swRedirect("/notFound"));
     }
-    console.log(ev.data);
   },
   sendMessage(msg: string) {
     navigator.serviceWorker.controller?.postMessage(msg);

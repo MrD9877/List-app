@@ -51,10 +51,6 @@ export default function List({ moveItems }: { moveItems: boolean }) {
     addItemToList(item);
   };
 
-  useEffect(() => {
-    console.log(items);
-  }, [items]);
-
   return (
     <div className="flex flex-col gap-4">
       <div style={{ gap: "var(--gap)" }} className="max-h-[70vh] flex flex-col overflow-scroll ">

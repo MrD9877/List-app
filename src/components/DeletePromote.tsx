@@ -28,7 +28,7 @@ export default function DeletePromt({ setSwipe, Itemkey }: { setSwipe: React.Dis
           </button>
         </DrawerTrigger>
         <DrawerContent>
-          <div className="mx-auto w-full max-w-sm">
+          <div className="mx-auto w-full max-w-sm bg-white">
             <DrawerHeader>
               <DrawerTitle>Delete</DrawerTitle>
               <DrawerDescription>Are you sure you want to permanetly delete this entry?</DrawerDescription>
