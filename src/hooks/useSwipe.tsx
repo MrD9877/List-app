@@ -20,7 +20,14 @@ export default function useSwipe() {
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
-    if (isLeftSwipe || isRightSwipe) setSwipe(isLeftSwipe ? "left" : "right");
+    if (isLeftSwipe || isRightSwipe) {
+      const newDirection = isLeftSwipe ? "left" : "right";
+      if ((newDirection === "left" && swipe === "right") || (newDirection === "right" && swipe === "left")) {
+        setSwipe(undefined);
+      } else {
+        setSwipe(newDirection);
+      }
+    }
     console.log(isLeftSwipe);
     // add your conditional logic here
   };

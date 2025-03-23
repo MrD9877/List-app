@@ -1,8 +1,9 @@
+"use client";
 export default null;
 declare const self: ServiceWorkerGlobalScope;
 declare const clients: Clients;
 
-const version = 10;
+export const version = 1;
 
 const cacheNameArray = [`default-version-${version}`, `javascript-version-${version}`, `html-version-${version}`, `css-version-${version}`];
 
@@ -88,14 +89,12 @@ self.addEventListener("activate", (ev) => {
 });
 
 self.addEventListener("fetch", (ev) => {
-  if (!ev.request.url.startsWith("ws://")) {
-    ev.respondWith(
-      (async () => {
-        const res: Response = await handleRequest(ev);
-        return res;
-      })()
-    );
-  }
+  ev.respondWith(
+    (async () => {
+      const res: Response = await handleRequest(ev);
+      return res;
+    })()
+  );
 });
 
 self.addEventListener("message", (ev) => {

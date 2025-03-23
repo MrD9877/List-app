@@ -7,15 +7,18 @@ import { StoreState } from "@/utility/slice";
 type InputDialog = { children: React.ReactNode; handleDisplay: () => void; display: boolean; addToList: (item: Item) => void };
 
 export function InputDialog({ children, handleDisplay, display, addToList }: InputDialog) {
-  const [newItem, setItem] = useState<Omit<Item, "keyEntry">>({ title: "", description: "" });
+  const [newItem, setItem] = useState<Omit<Item, "keyEntry" | "read">>({ title: "", description: "" });
   const item = useSelector((state: StoreState) => state.listItems);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>, type: "description" | "title") => {
     setItem((pre) => ({ ...pre, [type]: e.target.value }));
   };
   const handleSave = async () => {
-    const keyEntry = item[item.length - 1].keyEntry + 1;
-    addToList({ ...newItem, keyEntry });
+    let keyEntry: number = 0;
+    if (item.length > 0) {
+      keyEntry = item[item.length - 1].keyEntry + 1;
+    }
+    addToList({ ...newItem, keyEntry, read: false });
     setItem({ title: "", description: "" });
     handleDisplay();
   };

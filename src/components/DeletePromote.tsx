@@ -2,13 +2,14 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from "@/components/ui/Drawer";
 import { deleteItemFromList } from "@/utility/ListItemsFn";
+import { Trash2Icon } from "lucide-react";
 
 export const convertUrlId = (url: string) => {
   const { pathname } = new URL(url);
   const fileId = pathname.split("/")[1];
   return fileId;
 };
-export default function DeletePromt({ children, setSwipe, Itemkey }: { children: React.ReactElement; setSwipe: React.Dispatch<React.SetStateAction<"left" | "right" | undefined>>; Itemkey: number }) {
+export default function DeletePromt({ setSwipe, Itemkey }: { setSwipe: React.Dispatch<React.SetStateAction<"left" | "right" | undefined>>; Itemkey: number }) {
   const deleteFn = async () => {
     try {
       await deleteItemFromList(Itemkey);
@@ -22,7 +23,9 @@ export default function DeletePromt({ children, setSwipe, Itemkey }: { children:
     <div>
       <Drawer>
         <DrawerTrigger asChild className="flex justify-center items-center">
-          <button>{children}</button>
+          <button>
+            <Trash2Icon stroke="red" />
+          </button>
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">

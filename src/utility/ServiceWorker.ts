@@ -8,6 +8,7 @@ const ServiceWorkerClass: {
   handleMessage: (ev: MessageEvent<unknown>) => void;
   sendMessage: (ev: string) => void;
   checkOnline: () => void;
+  unregister: () => void;
 } = {
   SW: null,
   isOnline: "onLine" in navigator && navigator.onLine,
@@ -63,6 +64,16 @@ const ServiceWorkerClass: {
       ServiceWorkerClass.deferredInstall = ev;
       console.log("saved the install event");
     });
+  },
+  unregister: () => {
+    if ("serviceWorker" in navigator) {
+      // 4. remove/unregister service workers
+      navigator.serviceWorker.getRegistrations().then((regs) => {
+        for (const reg of regs) {
+          reg.unregister().then((isUnreg) => console.log(isUnreg));
+        }
+      });
+    }
   },
 
   checkOnline() {
