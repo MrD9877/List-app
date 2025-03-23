@@ -12,7 +12,7 @@ export default function Initiate() {
   const loading = useSelector((state: StoreState) => state.loading);
   async function intial() {
     await setList();
-    // await setSettings()
+    await setSettings();
   }
   useEffect(() => {
     // ServiceWorkerClass.init();

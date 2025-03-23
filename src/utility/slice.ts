@@ -1,3 +1,4 @@
+"use client";
 import {} from "@/app/settings/page";
 import { Item } from "@/components/List";
 import { createSlice, configureStore } from "@reduxjs/toolkit";
@@ -87,10 +88,13 @@ const userSlice = createSlice({
         } else return item;
       });
     },
-    upDateAppSettings: (state, action: { type: string; payload: { group: ALLGroups; id: AllSettings; value: boolean } }) => {
-      let selctedGroup = state.appSettings[action.payload.group];
-      selctedGroup = { ...selctedGroup, [action.payload.id]: action.payload.value };
-      state.appSettings = { ...state.appSettings, ...selctedGroup };
+    upDateAppSettings: (state, action: { type: string; payload: { group: string; id: string; value: boolean; type: string } }) => {
+      if (action.payload.type === "radio") {
+        state.appSettings[action.payload.group] = { [action.payload.id]: action.payload.value };
+      } else {
+        state.appSettings[action.payload.group][action.payload.id] = action.payload.value;
+      }
+      localStorage.setItem("appSettings", JSON.stringify(state.appSettings));
     },
     setAppSettings: (state, action: { type: string; payload: AppSettingsType }) => {
       state.appSettings = action.payload;

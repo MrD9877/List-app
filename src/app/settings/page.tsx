@@ -6,22 +6,21 @@ import { useRouter } from "next/navigation";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const settings: Setting[] = [
-  {
-    groupName: Setting_GROUPS.NETWORK_MODE_GROUP,
-    settingsName: [NETWORK_MODE_GROUP.OFFLINE_MODE, NETWORK_MODE_GROUP.ONLINE_MODE, NETWORK_MODE_GROUP.SEMI_OFFLINE],
-    inputsType: NETWORK_MODE_GROUP.inputsType,
-  },
-  {
-    groupName: Setting_GROUPS.NOTIFICATION_GROUP,
-    settingsName: [NOTIFICATION_GROUP.ALLOW_NOTIFICATIONS, NOTIFICATION_GROUP.Save_NOTIFICATIONS],
-    inputsType: NOTIFICATION_GROUP.inputsType,
-  },
-];
-
 export default function SettingPage() {
   const router = useRouter();
   const appSettings = useSelector((state: StoreState) => state.appSettings);
+  const settings: Setting[] = [
+    {
+      groupName: Setting_GROUPS.NETWORK_MODE_GROUP,
+      settingsName: [NETWORK_MODE_GROUP.OFFLINE_MODE, NETWORK_MODE_GROUP.ONLINE_MODE, NETWORK_MODE_GROUP.SEMI_OFFLINE],
+      inputsType: NETWORK_MODE_GROUP.inputsType,
+    },
+    {
+      groupName: Setting_GROUPS.NOTIFICATION_GROUP,
+      settingsName: [NOTIFICATION_GROUP.ALLOW_NOTIFICATIONS, NOTIFICATION_GROUP.Save_NOTIFICATIONS],
+      inputsType: NOTIFICATION_GROUP.inputsType,
+    },
+  ];
 
   return (
     <div className="min-h-[100lvh] w-screen bg-white">
