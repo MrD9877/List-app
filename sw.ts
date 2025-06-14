@@ -13,7 +13,6 @@ export const NETWORK_MODE_GROUP = {
   inputsType: "radio",
 };
 
-export default null;
 declare const self: ServiceWorkerGlobalScope;
 declare const clients: Clients;
 
@@ -23,15 +22,15 @@ const cacheNameArray = [`default-version-${version}`, `javascript-version-${vers
 
 ////////////////////////////////////////////////
 
-self.addEventListener("install", (ev) => {
+self.addEventListener("install", (ev: ExtendableEvent) => {
   self.skipWaiting();
   ev.waitUntil(deleteOldCaches());
 });
 
-self.addEventListener("activate", (ev) => {
+self.addEventListener("activate", (ev: ExtendableEvent) => {
   ev.waitUntil(clients.claim());
 });
-self.addEventListener("fetch", (ev) => {
+self.addEventListener("fetch", (ev: FetchEvent) => {
   ev.respondWith(
     (async () => {
       const res: Response = await handleRequest(ev);
@@ -40,7 +39,7 @@ self.addEventListener("fetch", (ev) => {
   );
 });
 
-self.addEventListener("message", (ev) => {
+self.addEventListener("message", (ev: ExtendableMessageEvent) => {
   if (ev.data === "confirmOnline") {
     ev.waitUntil(confirmOnlineFn(ev));
   }
@@ -121,7 +120,7 @@ const getClient = async (ev: FetchEvent) => {
 
 async function handleRequest(ev: FetchEvent): Promise<Response> {
   let mode = await getNetworkMode(ev);
-  mode = mode === null ? NETWORK_MODE_GROUP.OFFLINE_MODE : mode;
+  mode = mode === null ? NETWORK_MODE_GROUP.ONLINE_MODE : mode;
   const cacheRes = await caches.match(`${ev.request.url}-version-${version}`);
 
   if (mode === NETWORK_MODE_GROUP.ONLINE_MODE) {

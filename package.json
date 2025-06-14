@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "dev:sw": "npx tsc --project tsconfig.sw.json && next dev --turbopack",
+    "build": "npx tsc --project tsconfig.sw.json && next build",
     "start": "next start",
     "lint": "next lint"
   },

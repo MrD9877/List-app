@@ -19,7 +19,6 @@ export const NETWORK_MODE_GROUP = {
     OFFLINE_MODE: "Offline Mode",
     inputsType: "radio",
 };
-export default null;
 export const version = 1;
 const cacheNameArray = [`default-version-${version}`, `javascript-version-${version}`, `html-version-${version}`, `css-version-${version}`, SETTING_CACHES.CACHE_URL];
 ////////////////////////////////////////////////
@@ -114,7 +113,7 @@ const getClient = (ev) => __awaiter(void 0, void 0, void 0, function* () {
 function handleRequest(ev) {
     return __awaiter(this, void 0, void 0, function* () {
         let mode = yield getNetworkMode(ev);
-        mode = mode === null ? NETWORK_MODE_GROUP.OFFLINE_MODE : mode;
+        mode = mode === null ? NETWORK_MODE_GROUP.ONLINE_MODE : mode;
         const cacheRes = yield caches.match(`${ev.request.url}-version-${version}`);
         if (mode === NETWORK_MODE_GROUP.ONLINE_MODE) {
             const res = yield fetchAndSaveInCaches(ev.request);
