@@ -46,13 +46,13 @@ export default function ItemBox({ moveItems, data, ...props }: CodeCardProps) {
             : {}
         }
       >
-        <div onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} onTouchStart={onTouchStart} className=" rounded-lg  text-black flex justify-center items-center row-span-1 select-none" {...props}>
+        <div onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onMouseDown={onTouchStart} onMouseMove={onTouchMove} onMouseUp={onTouchEnd} className=" rounded-lg  text-black flex justify-center items-center row-span-1 select-none" {...props}>
           {data?.title}
-          <div className="absolute justify-end flex w-full px-5">{data.read && <CircleCheck stroke="#28a745" width={16} />}</div>
+          <div className="absolute justify-end flex w-full px-5 ">{data.read && <CircleCheck stroke="#28a745" width={16} />}</div>
         </div>
       </div>
       {!moveItems && (
-        <div style={swipe === "left" ? { zIndex: 10 } : { zIndex: -10 }} onTouchEnd={onTouchEnd} onTouchMove={onTouchMove} onTouchStart={onTouchStart} className="row-span-1 absolute -z-10 flex justify-end w-full items-center px-2 h-full">
+        <div style={swipe === "left" ? { zIndex: 10 } : { zIndex: -10 }} onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd} onMouseDown={onTouchStart} onMouseMove={onTouchMove} onMouseUp={onTouchEnd} className="row-span-1 absolute -z-10 flex justify-end w-full items-center px-2 h-full ">
           <DeletePromt setSwipe={setSwipe} Itemkey={data.keyEntry} />
         </div>
       )}

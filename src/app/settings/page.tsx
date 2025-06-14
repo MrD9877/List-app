@@ -15,7 +15,8 @@ export default function SettingPage() {
   //   document.body.style.background = "white";
   // });
   const router = useRouter();
-  const { appSettings, deferredInstall } = useSelector((state: StoreState) => ({ appSettings: state.appSettings, deferredInstall: state.deferredInstall }));
+  const appSettings = useSelector((state: StoreState) => state.appSettings);
+  const deferredInstall = useSelector((state: StoreState) => state.deferredInstall);
   const settings: Setting[] = [
     {
       groupName: Setting_GROUPS.NETWORK_MODE_GROUP,
@@ -30,7 +31,7 @@ export default function SettingPage() {
   ];
 
   return (
-    <div className="min-h-[100lvh] w-screen bg-white">
+    <div className="min-h-[100lvh] w-full bg-white">
       <nav className="w-screen h-12 flex items-center px-5 justify-between">
         <MoveLeft onClick={() => router.push("/")} />
         {deferredInstall && (

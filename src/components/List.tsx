@@ -52,17 +52,17 @@ export default function List({ moveItems }: { moveItems: boolean }) {
   };
 
   return (
-    <div className="flex flex-col gap-4">
-      <div style={{ gap: "var(--gap)" }} className="max-h-[70vh] flex flex-col overflow-scroll ">
+    <div className="flex flex-col gap-4 ">
+      <div style={{ gap: "var(--gap)" }} className="max-h-[70vh] flex flex-col overflow-y-scroll ">
         {items.map((data, index) => {
           return (
-            <div className="flex gap-3 items-center" key={data.keyEntry}>
+            <div className="flex gap-3 items-center " key={data.keyEntry}>
               {moveItems && <input id="default-checkbox" name="default-radio" type="radio" onChange={() => setSelected(index)} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm  " />}
               <ItemBox data={data} style={{ ...styleList[index], minHeight: "var(--height)", width: moveItems ? "60vw" : "80vw", background: data.read ? "#6f42c1" : "white" }} moveItems={moveItems} />
               {moveItems && (
                 <span className="flex items-center">
                   <input id={`moveTo-${index}`} name="moveTo" type="radio" onChange={() => setMoveTo(index)} className="w-0 h-0 " />
-                  <label style={{ color: moveTo === index ? "black" : "blue" }} htmlFor={`moveTo-${index}`}>
+                  <label style={{ color: moveTo === index ? "blue" : "black" }} htmlFor={`moveTo-${index}`}>
                     <ArrowBigLeft />
                   </label>
                 </span>

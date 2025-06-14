@@ -30,7 +30,7 @@ export default function Home() {
         </div>
       </nav>
 
-      <div className="h-[100svh] w-screen flex justify-center overflow-clip">
+      <div className="h-[100svh] w-full flex justify-center overflow-clip">
         <List moveItems={moveItems} />
       </div>
     </div>
